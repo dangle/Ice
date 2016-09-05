@@ -2,7 +2,7 @@
 
 import os
 
-def emulator_rom_launch_command(emulator, rom):
+def emulator_rom_launch_command(emulator, rom, user):
   """Generates a command string that will launch `rom` with `emulator` (using
   the format provided by the user). The return value of this function should
   be suitable to use as the `Exe` field of a Steam shortcut"""
@@ -17,13 +17,15 @@ def emulator_rom_launch_command(emulator, rom):
   #
   # The user didnt give us the ROM information, but screw it, I already
   # have some code to add quotes to a string, might as well use it.
-  quoted_location = add_quotes(normalize(emulator.location))
-  quoted_rom      = add_quotes(normalize(rom.path))
+  quoted_location  = add_quotes(normalize(emulator.location))
+  quoted_rom       = add_quotes(normalize(rom.path))
+  quoated_steam_id = add_quotes(normalize(str(self.id32)))
   # The format string contains a bunch of specifies that users can use to
   # substitute values in at runtime. Right now the only supported values are:
   # %l - The location of the emulator (to avoid sync bugs)
   # %r - The location of the ROM (so the emulator knows what to launch)
   # %fn - The ROM filename without its extension (for emulators that utilize separete configuration files)
+  # %i - The 32-bit Steam ID of the user (to allow for user specific configuration)
   #
   # More may be added in the future, but for now this is what we support
   return (
@@ -31,6 +33,7 @@ def emulator_rom_launch_command(emulator, rom):
       .replace("%l", quoted_location)
       .replace("%r", quoted_rom)
       .replace("%fn", os.path.splitext(os.path.basename(rom.path))[0])
+      .replace("%i", quoated_steam_id)
   )
 
 def emulator_startdir(emulator):
