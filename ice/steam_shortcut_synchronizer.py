@@ -79,7 +79,7 @@ class SteamShortcutSynchronizer(object):
     current_ice_shortcuts = filter(lambda shortcut: shortcut not in unmanaged_shortcuts, current_shortcuts)
     logger.debug("Current Ice shortcuts: %s" % current_ice_shortcuts)
     # Generate a list of shortcuts out of our list of ROMs
-    rom_shortcuts = map(roms.rom_to_shortcut, users_roms)
+    rom_shortcuts = [roms.rom_to_shortcut(rom, user) for rom in users_roms]
     # Calculate which ROMs were added and which were removed so we can inform
     # the user
     removed = self.removed_shortcuts(current_ice_shortcuts, rom_shortcuts)

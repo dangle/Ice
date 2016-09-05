@@ -12,7 +12,7 @@ class SteamGridUpdater(object):
     self.provider = provider
 
   def update_rom_artwork(self, user, rom, dry_run=False):
-    shortcut = roms.rom_to_shortcut(rom)
+    shortcut = roms.rom_to_shortcut(rom, user)
     logger.debug("Updating image for %s (%s)" % (rom, shortcut))
     app_id = shortcuts.shortcut_app_id(shortcut)
 
