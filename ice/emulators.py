@@ -19,13 +19,13 @@ def emulator_rom_launch_command(emulator, rom, user):
   # have some code to add quotes to a string, might as well use it.
   quoted_location  = add_quotes(normalize(emulator.location))
   quoted_rom       = add_quotes(normalize(rom.path))
-  quoated_steam_id = add_quotes(normalize(str(user.id32)))
+  quoated_steam_id = add_quotes(normalize(str(user.user_id)))
   # The format string contains a bunch of specifies that users can use to
   # substitute values in at runtime. Right now the only supported values are:
   # %l - The location of the emulator (to avoid sync bugs)
   # %r - The location of the ROM (so the emulator knows what to launch)
   # %fn - The ROM filename without its extension (for emulators that utilize separete configuration files)
-  # %i - The 32-bit Steam ID of the user (to allow for user specific configuration)
+  # %i - The user's Steam ID (to allow for user specific configuration)
   #
   # More may be added in the future, but for now this is what we support
   return (
